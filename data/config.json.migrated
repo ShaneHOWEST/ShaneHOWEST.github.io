@@ -1,0 +1,18 @@
+{
+  "sources": [
+    {
+      "id": "cfcf31cf-193d-46e5-96cf-45e778717a5f",
+      "name": "NOS Nieuws",
+      "url": "https://feeds.nos.nl/nosnieuws",
+      "enabled": true
+    },
+    {
+      "id": "06b1a853-08b7-4822-9c8d-b27cc4dfd8a0",
+      "name": "Rijksoverheid",
+      "url": "https://feeds.rijksoverheid.nl/nieuws.rss",
+      "enabled": true
+    }
+  ],
+  "providers": [],
+  "articles": []
+}

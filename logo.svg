@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title">
+  <title>NieuwsFlits logo</title>
+  <defs>
+    <linearGradient id="g" x1="16" y1="12" x2="112" y2="116" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#5b86e5"/>
+      <stop offset="1" stop-color="#345fc0"/>
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" rx="32" fill="#24344d"/>
+  <path d="M29 36h15l24 31V36h16v56H69L45 61v31H29z" fill="url(#g)"/>
+  <path d="M91 36h9v56h-9z" fill="#fff" opacity=".9"/>
+  <path d="M91 36h9l-9 15z" fill="#a9c1ff"/>
+</svg>

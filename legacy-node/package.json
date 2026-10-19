@@ -1,0 +1,1 @@
+{"name":"nieuwsai","version":"1.0.0","private":true,"type":"module","scripts":{"start":"node --experimental-sqlite server.js","dev":"node --experimental-sqlite --watch server.js"},"dependencies":{"express":"^4.21.2","nodemailer":"^10.1.7","rss-parser":"^3.13.0","stripe":"^23.0.0"}}

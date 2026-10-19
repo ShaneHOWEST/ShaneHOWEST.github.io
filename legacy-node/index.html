@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="NieuwsFlits - helder nieuws, geschreven met hulp van kunstmatige intelligentie." />
+    <title>NieuwsFlits — Het nieuws, helder gemaakt</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="site-header">
+        <div class="header-inner">
+          <a class="brand" href="#" aria-label="NieuwsFlits home">
+            <span class="brand-mark" aria-hidden="true">N</span>
+            <span>Nieuws<span class="brand-accent">Flits</span></span>
+          </a>
+          <nav class="main-nav" aria-label="Hoofdnavigatie">
+            <a class="active" href="#latest">Laatste nieuws</a>
+            <a href="#topics">Onderwerpen</a>
+          </nav>
+          <button class="icon-button menu-button" id="menuButton" aria-label="Menu openen" aria-expanded="false">
+            <span></span><span></span><span></span>
+          </button>
+          <div class="header-actions">
+            <button class="search-trigger" id="searchTrigger" aria-label="Zoeken openen">
+              <span class="search-icon" aria-hidden="true"></span>
+              <span>Zoeken</span>
+              <kbd>⌘ K</kbd>
+            </button>
+            <button class="avatar" id="accountButton" aria-label="Account openen">SA</button>
+            <button class="admin-button hidden" id="adminButton" type="button"><span aria-hidden="true">⚙</span> Beheer</button>
+          </div>
+        </div>
+      </header>
+
+      <main>
+        <section class="hero-section" id="latest">
+          <div class="hero-copy">
+            <p class="eyebrow"><span class="live-dot"></span> Vers van de redactie</p>
+            <h1>Het nieuws,<br /><em>helder gemaakt.</em></h1>
+            <p class="hero-intro">NieuwsFlits combineert menselijke nieuwsgierigheid met de snelheid van AI. Feiten, context en het verhaal erachter — in één overzicht.</p>
+            <a href="#newsGrid" class="primary-button">Ontdek het nieuws <span aria-hidden="true">→</span></a>
+          </div>
+          <div class="hero-visual" aria-hidden="true">
+            <div class="orb orb-large"></div>
+            <div class="orb orb-small"></div>
+            <div class="orbit orbit-one"></div>
+            <div class="orbit orbit-two"></div>
+            <div class="hero-card-float float-top"><span class="mini-dot"></span> <span id="newArticlesStat">0</span> nieuwe verhalen</div>
+            <div class="hero-card-float float-bottom"><strong id="readersStat">0</strong><span>lezers vandaag</span></div>
+            <div class="hero-grid-lines"></div>
+          </div>
+        </section>
+
+        <section class="topics-section" id="topics" aria-labelledby="topics-title">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Jouw overzicht</p>
+              <h2 id="topics-title">Waar ben je benieuwd naar?</h2>
+            </div>
+            <div class="topic-controls">
+              <button class="topic-button active" data-category="Alles">Alles</button>
+              <button class="topic-button" data-category="Technologie">Technologie</button>
+              <button class="topic-button" data-category="Klimaat">Klimaat</button>
+              <button class="topic-button" data-category="Samenleving">Samenleving</button>
+              <button class="topic-button" data-category="Economie">Economie</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="content-layout" aria-label="Nieuws">
+          <div class="news-column">
+            <div class="news-toolbar">
+              <div>
+                <h2>Voor jou geselecteerd</h2>
+                <p id="resultCount">0 verhalen</p>
+              </div>
+              <label class="select-wrap">
+                <span class="sr-only">Sorteer nieuws</span>
+                <select id="sortSelect">
+                  <option value="newest">Nieuwste eerst</option>
+                  <option value="read">Meest gelezen</option>
+                </select>
+              </label>
+            </div>
+            <div class="news-grid" id="newsGrid"></div>
+            <div class="empty-state hidden" id="emptyState">
+              <div class="empty-icon" aria-hidden="true">⌕</div>
+              <h3>Geen verhalen gevonden</h3>
+              <p>Probeer een andere zoekterm of kies een ander onderwerp.</p>
+              <button class="text-button" id="clearSearch">Wis zoekopdracht</button>
+            </div>
+          </div>
+
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <div class="footer-brand"><span class="brand-mark">N</span> NieuwsFlits</div>
+        <p>Nieuws met context. Altijd transparant over bronnen.</p>
+        <span>© 2024 NieuwsFlits</span>
+      </footer>
+    </div>
+
+    <div class="search-overlay hidden" id="searchOverlay" role="dialog" aria-modal="true" aria-labelledby="searchTitle">
+      <div class="search-dialog">
+        <button class="close-button" id="closeSearch" aria-label="Zoeken sluiten">×</button>
+        <p class="eyebrow">Verken de redactie</p>
+        <h2 id="searchTitle">Waar wil je meer over weten?</h2>
+        <div class="search-input-wrap">
+          <span class="search-icon" aria-hidden="true"></span>
+          <input id="searchInput" type="search" placeholder="Zoek in alle verhalen..." autocomplete="off" />
+          <kbd>ESC</kbd>
+        </div>
+        <p class="search-hint">Tip: zoek op onderwerp, bron of categorie.</p>
+      </div>
+    </div>
+    <div class="toast hidden" id="toast" role="status"></div>
+    <div class="article-overlay hidden" id="articleOverlay" role="dialog" aria-modal="true" aria-labelledby="articleTitle">
+      <article class="article-reader">
+        <button class="close-button" id="closeArticle" aria-label="Artikel sluiten">×</button>
+        <p class="eyebrow" id="articleCategory">Nieuws</p>
+        <h2 id="articleTitle"></h2>
+        <p class="article-meta" id="articleMeta"></p>
+        <div class="article-body" id="articleBody"></div>
+        <div class="article-paywall hidden" id="articlePaywall"><strong>Lees het volledige artikel</strong><p>Maak een account aan en kies een abonnement om premium verhalen volledig te lezen.</p><button class="primary-button" id="articleSubscribe" type="button">Bekijk abonnementen <span>→</span></button></div>
+      </article>
+    </div>
+    <div class="admin-overlay hidden" id="adminOverlay" role="dialog" aria-modal="true" aria-labelledby="adminTitle">
+      <div class="admin-panel">
+        <button class="close-button" id="closeAdmin" aria-label="Beheer sluiten">×</button>
+        <div class="admin-heading">
+          <p class="eyebrow">NieuwsFlits control room</p>
+          <h2 id="adminTitle">Beheer &amp; integraties</h2>
+          <p>Beheer de bronnen waaruit je redactie leest en verbind een echte AI-provider.</p>
+        </div>
+        <div class="admin-status" id="adminStatus"><span></span> Configuratie wordt geladen…</div>
+        <section class="admin-section">
+          <div class="admin-section-heading"><div><h3>Gebruikers</h3><p>Maak accounts aan voor redacteuren en beheerders.</p></div></div>
+          <form class="user-form" id="userForm">
+            <input id="userEmail" name="email" type="email" placeholder="redactie@voorbeeld.nl" required />
+            <input id="userPassword" name="password" type="password" minlength="10" placeholder="Minimaal 10 tekens" required />
+            <button class="admin-submit" type="submit">Gebruiker aanmaken</button>
+          </form>
+          <div class="user-list" id="userList"></div>
+          <p class="admin-help">Wachtwoorden worden met scrypt gehasht en nooit teruggestuurd naar de browser.</p>
+        </section>
+        <section class="admin-section">
+          <div class="admin-section-heading"><div><h3>Nieuwsbronnen</h3><p>Voeg een RSS-feed of nieuwswebsite toe. Websitepagina's worden periodiek op nieuwe artikel-links gecontroleerd.</p></div></div>
+          <form class="source-form" id="sourceForm">
+            <input id="sourceName" name="name" placeholder="Naam, bijv. NOS Nieuws" required />
+            <select id="sourceType" name="type" aria-label="Type nieuwsbron"><option value="rss">RSS/Atom-feed</option><option value="website">Website uitlezen</option></select>
+            <input id="sourceUrl" name="url" type="url" placeholder="https://voorbeeld.nl/feed.xml" required />
+            <button class="admin-submit" type="submit">Bron toevoegen</button>
+          </form>
+          <div class="source-list" id="sourceList"></div>
+          <p class="admin-help">Gebruik website-uitlezen alleen voor websites waarvoor je de inhoud mag ophalen en verwerken. De server bewaart de bron-URL intern en voorkomt dubbele artikelen.</p>
+        </section>
+        <section class="admin-section">
+          <div class="admin-section-heading"><div><h3>AI-provider</h3><p>Providers worden op prioriteit geprobeerd; bij een fout valt de server terug op de volgende.</p></div></div>
+          <form class="provider-form" id="providerForm">
+            <label for="providerName">Provider</label>
+            <select id="providerName" name="provider"><option value="openai">OpenAI-compatible API</option><option value="anthropic">Anthropic</option><option value="gemini">Google Gemini</option><option value="custom">Custom endpoint</option></select>
+            <label for="providerUrl">API endpoint</label>
+            <input id="providerUrl" name="url" type="url" placeholder="https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent" required />
+            <label for="providerModel">Model</label>
+            <input id="providerModel" name="model" placeholder="bijv. gpt-4o-mini" required />
+            <label for="providerKey">API key</label>
+            <input id="providerKey" name="key" type="password" placeholder="sk-…" autocomplete="off" required />
+            <button class="admin-submit" type="submit">Configuratie opslaan</button>
+          </form>
+          <div class="provider-list" id="providerList"></div>
+          <button class="sync-button" id="syncButton" type="button">Bronnen ophalen &amp; artikelen herschrijven</button>
+          <p class="security-note"><strong>Beveiligd:</strong> credentials worden server-side opgeslagen. Gebruik in productie een secrets manager of environment variables.</p>
+        </section>
+        <section class="admin-section">
+          <div class="admin-section-heading"><div><h3>Betalingen &amp; e-mail</h3><p>Pas Stripe Checkout, webhooks en verificatie-/uitnodigingsmails aan. Laat gemaskeerde geheimen leeg om ze te behouden.</p></div></div>
+          <form class="provider-form" id="integrationForm">
+            <h4>Stripe</h4>
+            <label for="stripeSecretKey">Secret key</label>
+            <input id="stripeSecretKey" name="stripeSecretKey" type="password" placeholder="sk_test_…" autocomplete="new-password" />
+            <label for="stripePriceId">Price ID</label>
+            <input id="stripePriceId" name="stripePriceId" placeholder="price_…" />
+            <label for="stripeWebhookSecret">Webhook signing secret</label>
+            <input id="stripeWebhookSecret" name="stripeWebhookSecret" type="password" placeholder="whsec_…" autocomplete="new-password" />
+            <h4>SMTP</h4>
+            <label for="smtpHost">Host</label>
+            <input id="smtpHost" name="smtpHost" placeholder="smtp.example.com" />
+            <label for="smtpPort">Poort</label>
+            <input id="smtpPort" name="smtpPort" type="number" min="1" max="65535" placeholder="587" />
+            <label for="smtpSecure">Beveiligde verbinding</label>
+            <select id="smtpSecure" name="smtpSecure"><option value="false">STARTTLS / niet direct TLS</option><option value="true">Direct TLS</option></select>
+            <label for="smtpUser">Gebruikersnaam</label>
+            <input id="smtpUser" name="smtpUser" autocomplete="username" />
+            <label for="smtpPassword">Wachtwoord</label>
+            <input id="smtpPassword" name="smtpPassword" type="password" autocomplete="new-password" />
+            <label for="smtpFrom">Afzender</label>
+            <input id="smtpFrom" name="smtpFrom" placeholder="NieuwsFlits &lt;no-reply@voorbeeld.nl&gt;" />
+            <button class="admin-submit" type="submit">Betalings- en mailgegevens opslaan</button>
+          </form>
+          <p class="security-note"><strong>Let op:</strong> geheime sleutels worden niet teruggestuurd naar de browser en blijven server-side opgeslagen in SQLite.</p>
+        </section>
+      </div>
+    </div>
+    <div class="login-overlay hidden" id="loginOverlay" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
+     <form class="login-card" id="loginForm">
+       <p class="eyebrow">NieuwsFlits beheer</p>
+       <h2 id="loginTitle">Log in op het beheerpaneel</h2>
+       <p>Beheer bronnen, providers en RSS-imports vanuit een afgeschermde omgeving.</p>
+       <label for="loginEmail">E-mail</label><input id="loginEmail" type="email" value="admin@nieuwsai.local" required />
+       <label for="loginPassword">Wachtwoord</label><input id="loginPassword" type="password" placeholder="Je admin-wachtwoord" required />
+       <button class="admin-submit" type="submit">Inloggen</button>
+       <small>Log in met je NieuwsFlits-account.</small>
+     </form>
+    </div>
+    <div class="account-overlay hidden" id="accountOverlay" role="dialog" aria-modal="true" aria-labelledby="accountTitle">
+      <div class="account-panel">
+        <button class="close-button" id="closeAccount" aria-label="Account sluiten">×</button>
+        <div class="account-heading"><p class="eyebrow">Mijn NieuwsFlits</p><h2 id="accountTitle">Account &amp; abonnement</h2><p id="accountStatus">Log in om artikelen volledig te lezen en je abonnement te beheren.</p></div>
+        <div id="authActions" class="auth-actions">
+          <form id="loginMemberForm" class="member-form"><h3>Inloggen</h3><input name="email" type="email" placeholder="jij@voorbeeld.nl" required /><input name="password" type="password" placeholder="Wachtwoord" required /><button class="admin-submit" type="submit">Inloggen</button></form>
+          <form id="signupForm" class="member-form"><h3>Account aanmaken</h3><input name="email" type="email" placeholder="jij@voorbeeld.nl" required /><input name="password" type="password" minlength="10" placeholder="Minimaal 10 tekens" required /><button class="admin-submit" type="submit">Registreren</button><small id="authNotice">Na registratie ontvang je een verificatielink per e-mail. Een gedeeld abonnement wordt actief na verificatie.</small><button class="text-button hidden" id="resendVerification" type="button">Verificatiemail opnieuw versturen</button></form>
+        </div>
+        <div id="accountContent" class="hidden">
+          <form id="profileForm" class="member-form"><h3>Accountgegevens</h3><input name="email" type="email" required /><button class="admin-submit" type="submit">E-mailadres opslaan</button></form>
+          <div class="subscription-box"><h3>Abonnement</h3><p id="subscriptionText"></p><button class="primary-button" id="subscribeButton" type="button">Eigen abonnement nemen / vernieuwen <span>→</span></button></div>
+          <form id="shareForm" class="member-form hidden"><h3>Deel je eigen abonnement</h3><p>Je kunt maximaal vijf mensen uitnodigen. Gedeelde gebruikers kunnen zelf geen toegang doorgeven.</p><input name="email" type="email" placeholder="vriend@voorbeeld.nl" required /><button class="admin-submit" type="submit">Gratis abonnement delen</button></form>
+          <div id="shareList" class="member-form hidden"></div>
+          <div class="api-box"><h3>Eigen RSS API</h3><p>Alleen voor actieve abonnees. Een key wordt maar één keer volledig getoond.</p><form id="apiKeyForm"><input name="name" placeholder="Bijv. mijn website" /><button class="admin-submit" type="submit">API-key maken</button></form><div id="apiKeyList"></div></div>
+          <button class="text-button" id="logoutButton" type="button">Uitloggen</button>
+        </div>
+      </div>
+    </div>
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
